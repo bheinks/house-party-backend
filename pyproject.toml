@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "house-party-backend"
+version = "0.1.0"
+description = ""
+authors = ["Brett Heinkel <bheinks@gmail.com>"]
+readme = "README.md"
+packages = [{include = "house_party_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.4"
+django-nested-admin = "^4.0.2"
+psycopg2 = "^2.9.5"
+djangorestframework = "^3.14.0"
+python-decouple = "^3.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
