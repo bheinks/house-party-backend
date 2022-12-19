@@ -16,6 +16,8 @@ class OrderItemInline(nested_admin.NestedTabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = 'created', 'total_usd', 'patron', 'settled'
+    list_editable = 'settled',
+    list_filter = 'settled', 'patron__name'
     readonly_fields = 'total_usd',
     inlines = [OrderItemInline]
 

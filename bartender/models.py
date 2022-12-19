@@ -32,7 +32,7 @@ class Patron(models.Model):
 
 class Order(models.Model):
     drinks = models.ManyToManyField(Drink, through='OrderItem')
-    settled = models.BooleanField(default=False, verbose_name='Settled?')
+    settled = models.BooleanField(default=False, verbose_name='settled?')
     patron = models.ForeignKey(Patron, on_delete=models.CASCADE, related_name='orders')
     created = models.DateTimeField(auto_now_add=True)
 
