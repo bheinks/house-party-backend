@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from django.core.validators import MinValueValidator
 
 
 class Drink(models.Model):
@@ -51,7 +52,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     drink = models.ForeignKey(Drink, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
-    quantity = models.IntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
         # Quick and dirty hack to conditionally pluralize drink name
