@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from bartender.views import DrinkViewSet, PatronViewSet, OrderViewSet
+from bartender.views import DrinkViewSet, PatronViewSet, OrderViewSet, OrderItemViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'drinks', DrinkViewSet)
 router.register(r'patrons', PatronViewSet)
 router.register(r'orders', OrderViewSet)
+router.register(r'order_items', OrderItemViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

@@ -9,20 +9,20 @@ class DrinkSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    drink = DrinkSerializer(read_only=True)
+    drink = serializers.SlugRelatedField(slug_field='name', queryset=Drink.objects.all())
 
     class Meta:
         model = OrderItem
-        fields = 'drink', 'quantity', 'total'
+        fields = 'id', 'drink', 'quantity', 'total'
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    order_items = OrderItemSerializer(many=True, read_only=True)
-    patron = serializers.StringRelatedField(read_only=True)
+    order_items = OrderItemSerializer(many=True, required=False)
+    patron = serializers.SlugRelatedField(slug_field='name', queryset=Patron.objects.all(), required=False)
 
     class Meta:
         model = Order
-        fields = 'order_items', 'total', 'patron', 'settled', 'created'
+        fields = 'id', 'order_items', 'total', 'patron', 'settled', 'created'
     
     # Include patron name when returning Order, exclude when returning Patron
     def __init__(self, *args, **kwargs):
@@ -30,6 +30,19 @@ class OrderSerializer(serializers.ModelSerializer):
             del self.fields['patron']
 
         super().__init__(*args, **kwargs)
+    
+    def update(self, instance, validated_data):
+        # Update settled?
+        instance.settled = validated_data.get('settled', instance.settled)
+        
+        # Loop over, construct and add order items to order if provided
+        order_items = validated_data.pop('order_items', [])
+        for o in order_items:
+            order_item = OrderItem(order_id=instance.id, **o)
+            order_item.save()
+            instance.order_items.add(order_item)
+
+        return super().update(instance, validated_data)
 
 
 class PatronSerializer(serializers.ModelSerializer):
