@@ -5,15 +5,15 @@ from .models import Drink, Patron, Order, OrderItem
 class DrinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drink
-        exclude = 'id',
+        fields = '__all__'
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    drink = serializers.SlugRelatedField(slug_field='name', queryset=Drink.objects.all())
+    drink_id = serializers.PrimaryKeyRelatedField(queryset=Drink.objects.all())
 
     class Meta:
         model = OrderItem
-        fields = 'id', 'drink', 'quantity', 'total'
+        fields = 'id', 'drink_id', 'quantity', 'total'
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class OrderSerializer(serializers.ModelSerializer):
     # Include patron name when returning Order, exclude when returning Patron
     def __init__(self, *args, **kwargs):
         if 'context' not in kwargs:
-            del self.fields['patron']
+            self.fields.pop('patron')
 
         super().__init__(*args, **kwargs)
     
@@ -38,7 +38,8 @@ class OrderSerializer(serializers.ModelSerializer):
         # Loop over, construct and add order items to order if provided
         order_items = validated_data.pop('order_items', [])
         for o in order_items:
-            order_item = OrderItem(order_id=instance.id, **o)
+            #print(o)
+            order_item = OrderItem(order_id=instance.id, drink=o['drink_id'], quantity=o['quantity'])
             order_item.save()
             instance.order_items.add(order_item)
 
@@ -50,4 +51,4 @@ class PatronSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patron
-        fields = 'name', 'orders', 'balance'
+        fields = 'id', 'name', 'orders', 'balance', 'photo'

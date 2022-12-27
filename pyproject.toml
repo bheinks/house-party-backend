@@ -13,6 +13,7 @@ django-nested-admin = "^4.0.2"
 psycopg2 = "^2.9.5"
 djangorestframework = "^3.14.0"
 python-decouple = "^3.6"
+pillow = "^9.3.0"
 
 
 [build-system]

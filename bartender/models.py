@@ -7,6 +7,7 @@ class Drink(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    photo = models.ImageField(upload_to='drinks', blank=True)
 
     def __str__(self):
         return self.name
@@ -18,6 +19,7 @@ class Drink(models.Model):
 
 class Patron(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    photo = models.ImageField(upload_to='patrons', blank=True)
 
     def __str__(self):
         return self.name
@@ -56,6 +58,7 @@ class OrderItem(models.Model):
 
     def __str__(self):
         # Quick and dirty hack to conditionally pluralize drink name
+        # https://stackoverflow.com/a/65063284
         return f"{self.quantity} {self.drink.name}{'s'[:self.quantity^1]}"
     
     @property
