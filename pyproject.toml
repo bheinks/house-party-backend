@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "virtual-bartender"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Brett Heinkel <bheinks@gmail.com>"]
 readme = "README.md"
@@ -14,6 +14,7 @@ psycopg2 = "^2.9.5"
 djangorestframework = "^3.14.0"
 python-decouple = "^3.6"
 pillow = "^9.3.0"
+django-filter = "^22.1"
 
 
 [build-system]

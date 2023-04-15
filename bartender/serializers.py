@@ -9,37 +9,35 @@ class DrinkSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    drink_id = serializers.PrimaryKeyRelatedField(queryset=Drink.objects.all())
+    drink = serializers.SlugRelatedField(slug_field='name', queryset=Drink.objects.all())
 
     class Meta:
         model = OrderItem
-        fields = 'id', 'drink_id', 'quantity', 'total'
+        fields = 'id', 'drink', 'quantity', 'total'
 
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True, required=False)
-    patron = serializers.SlugRelatedField(slug_field='name', queryset=Patron.objects.all(), required=False)
+    patron = serializers.SlugRelatedField(slug_field='name', queryset=Patron.objects.all())
 
     class Meta:
         model = Order
         fields = 'id', 'order_items', 'total', 'patron', 'settled', 'created'
     
-    # Include patron name when returning Order, exclude when returning Patron
-    def __init__(self, *args, **kwargs):
-        if 'context' not in kwargs:
-            self.fields.pop('patron')
+    def create(self, validated_data):
+        order_items = validated_data.pop('order_items', [])
+        order = Order.objects.create(**validated_data)
 
-        super().__init__(*args, **kwargs)
+        for order_item in order_items:
+            OrderItem.objects.create(order=order, **order_item)
+        
+        return order
     
     def update(self, instance, validated_data):
-        # Update settled?
-        instance.settled = validated_data.get('settled', instance.settled)
-        
         # Loop over, construct and add order items to order if provided
         order_items = validated_data.pop('order_items', [])
         for o in order_items:
-            #print(o)
-            order_item = OrderItem(order_id=instance.id, drink=o['drink_id'], quantity=o['quantity'])
+            order_item = OrderItem(order_id=instance.id, **o)
             order_item.save()
             instance.order_items.add(order_item)
 
