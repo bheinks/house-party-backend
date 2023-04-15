@@ -5,7 +5,7 @@ from .models import Drink, Patron, Order, OrderItem
 
 
 class DrinkAdmin(admin.ModelAdmin):
-    list_display = 'name', 'price_usd'
+    list_display = 'name', 'price_usd', 'in_stock'
 
 
 class OrderItemInline(nested_admin.NestedTabularInline):

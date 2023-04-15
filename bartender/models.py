@@ -8,6 +8,7 @@ class Drink(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     photo = models.ImageField(upload_to='drinks', blank=True)
+    in_stock = models.BooleanField(default=True, verbose_name='in stock?')
 
     def __str__(self):
         return self.name
