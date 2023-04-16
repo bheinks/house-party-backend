@@ -1,4 +1,3 @@
-from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from .models import Drink, Patron, Order, OrderItem
 from .serializers import DrinkSerializer, PatronSerializer, OrderSerializer, OrderItemSerializer
