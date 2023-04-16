@@ -17,7 +17,6 @@ class PatronViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    filterset_fields = ['settled']
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
