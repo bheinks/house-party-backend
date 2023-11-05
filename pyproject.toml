@@ -8,14 +8,14 @@ packages = [{include = "virtual_bartender"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "^4.1.4"
+django = "^4.2.7"
 django-nested-admin = "^4.0.2"
-psycopg2 = "^2.9.5"
 djangorestframework = "^3.14.0"
-python-decouple = "^3.6"
-pillow = "^9.3.0"
-django-filter = "^22.1"
-
+python-decouple = "^3.8"
+pillow = "^10.1.0"
+django-filter = "^23.3"
+psycopg2-binary = "^2.9.9"
+setuptools = "^68.2.2"
 
 [build-system]
 requires = ["poetry-core"]

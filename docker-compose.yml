@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./bartender:/virtual-bartender/bartender
+      - ./project:/virtual-bartender/project
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:16.0
+    volumes:
+    - data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  data:

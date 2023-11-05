@@ -1,0 +1,6 @@
+.git*
+.DS_Store
+.venv
+.env
+__pycache__/
+media/

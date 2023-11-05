@@ -23,16 +23,16 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = 'id', 'order_items', 'total', 'patron', 'settled', 'created'
-    
+
     def create(self, validated_data):
         order_items = validated_data.pop('order_items', [])
         order = Order.objects.create(**validated_data)
 
         for order_item in order_items:
             OrderItem.objects.create(order=order, **order_item)
-        
+
         return order
-    
+
     def update(self, instance, validated_data):
         # Loop over, construct and add order items to order if provided
         order_items = validated_data.pop('order_items', [])
