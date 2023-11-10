@@ -9,10 +9,8 @@ ENV POETRY_NO_INTERACTION=1 \
 
 WORKDIR /virtual-bartender
 
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.lock manage.py ./
 
 RUN poetry install --no-root --no-cache
-
-COPY . .
 
 ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
