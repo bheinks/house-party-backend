@@ -22,7 +22,7 @@ Clone the repository:
 git clone https://github.com/bheinks/virtual-bartender.git
 ```
 
-Create a `.env` file in the root directory, defining the following variables (this is used both by PostgreSQL and Django):
+Create a `.env` file in the root directory, defining the following variables (used both by PostgreSQL and Django):
 ```
 SECRET_KEY=change_me
 DEBUG=True
@@ -47,6 +47,12 @@ Create a superuser:
 docker exec -it virtual-bartender-web-1 python manage.py createsuperuser
 ```
 
-Open http://127.0.0.1:8000 in your browser and sign in with your new user.
+Open the admin panel at http://127.0.0.1:8000 and sign in with your new user.
 
-## Usage
+## To-do
+- Admin console documentation
+- API documentation
+- Better error handling
+- Drink item filtering
+- Ability to categorize orders under "Events"
+- Redis support
