@@ -6,6 +6,7 @@ services:
     volumes:
       - ./bartender:/virtual-bartender/bartender
       - ./project:/virtual-bartender/project
+      - ./media:/virtual-bartender/media
     ports:
       - 8000:8000
     env_file:
