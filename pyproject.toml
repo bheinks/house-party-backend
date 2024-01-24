@@ -17,6 +17,9 @@ django-filter = "^23.3"
 psycopg2-binary = "^2.9.9"
 setuptools = "^68.2.2"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
