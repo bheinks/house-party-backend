@@ -32,7 +32,7 @@ class OrderInline(nested_admin.NestedTabularInline):
 
 class PatronAdmin(nested_admin.NestedModelAdmin):
     list_display = 'name', 'balance_usd'
-    
+
     readonly_fields = 'balance_usd',
     inlines = [OrderInline]
 
