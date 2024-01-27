@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Drink, Patron, Order, OrderItem
+from .models import Drink, Patron, Order, OrderItem, Sound
 
 
 class DrinkSerializer(serializers.ModelSerializer):
@@ -50,3 +50,9 @@ class PatronSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patron
         fields = 'id', 'name', 'orders', 'balance', 'photo'
+
+
+class SoundSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sound
+        fields = '__all__'

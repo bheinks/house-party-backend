@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Drink, Patron, Order, OrderItem
-from .serializers import DrinkSerializer, PatronSerializer, OrderSerializer, OrderItemSerializer
+from .models import Drink, Patron, Order, OrderItem, Sound
+from .serializers import DrinkSerializer, PatronSerializer, OrderSerializer, OrderItemSerializer, SoundSerializer
 
 
 class DrinkViewSet(viewsets.ModelViewSet):
@@ -21,3 +21,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+
+
+class SoundViewSet(viewsets.ModelViewSet):
+    queryset = Sound.objects.all()
+    serializer_class = SoundSerializer

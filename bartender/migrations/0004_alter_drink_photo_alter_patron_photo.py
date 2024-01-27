@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='drink',
             name='photo',
-            field=models.ImageField(blank=True, storage=bartender.storage.OverwriteStorage(), upload_to=bartender.models.get_upload_path),
+            field=models.ImageField(blank=True),
         ),
         migrations.AlterField(
             model_name='patron',
             name='photo',
-            field=models.ImageField(blank=True, storage=bartender.storage.OverwriteStorage(), upload_to=bartender.models.get_upload_path),
+            field=models.ImageField(blank=True),
         ),
     ]

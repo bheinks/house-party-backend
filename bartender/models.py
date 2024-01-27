@@ -2,21 +2,20 @@ from pathlib import Path
 
 from django.db import models
 from django.contrib import admin
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, FileExtensionValidator
 
 from .storage import OverwriteStorage
 
-
-def get_upload_path(instance, filename):
-    base_path = Path(instance.__class__.__name__.lower() + 's')  # e.g. patrons/1.jpg
-    return base_path / (str(instance.id) + Path(filename).suffix)
+PATRON_PHOTO_PATH = 'images/patrons/'
+DRINK_PHOTO_PATH = 'images/drinks/'
+SOUND_PATH = 'sounds/'
 
 
 class Drink(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    photo = models.ImageField(storage=OverwriteStorage(), upload_to=get_upload_path, blank=True)
+    photo = models.ImageField(storage=OverwriteStorage(), upload_to=DRINK_PHOTO_PATH, blank=True)
     in_stock = models.BooleanField(default=True, verbose_name='in stock?')
 
     def __str__(self):
@@ -29,7 +28,7 @@ class Drink(models.Model):
 
 class Patron(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    photo = models.ImageField(storage=OverwriteStorage(), upload_to=get_upload_path, blank=True)
+    photo = models.ImageField(upload_to=PATRON_PHOTO_PATH, blank=True)
 
     def __str__(self):
         return self.name
@@ -69,7 +68,7 @@ class OrderItem(models.Model):
     def __str__(self):
         # Quick and dirty hack to conditionally pluralize drink name
         # https://stackoverflow.com/a/65063284
-        return f'{self.quantity} {self.drink.name}{"s"[:self.quantity ^ 1]}'
+        return f'{self.quantity} {self.drink.name}' + 's'[:self.quantity ^ 1]
 
     @property
     def total(self):
@@ -78,3 +77,10 @@ class OrderItem(models.Model):
     @admin.display(description='Total')
     def total_usd(self):
         return f'${self.total}'
+
+
+class Sound(models.Model):
+    file = models.FileField(upload_to=SOUND_PATH, validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
+    enabled = models.BooleanField(default=True)
+    description = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)

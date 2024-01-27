@@ -1,7 +1,7 @@
 import nested_admin
 
 from django.contrib import admin
-from .models import Drink, Patron, Order, OrderItem
+from .models import Drink, Patron, Order, OrderItem, Sound
 
 
 class DrinkAdmin(admin.ModelAdmin):
@@ -37,6 +37,12 @@ class PatronAdmin(nested_admin.NestedModelAdmin):
     inlines = [OrderInline]
 
 
+class SoundAdmin(admin.ModelAdmin):
+    list_display = 'file', 'enabled', 'description', 'created'
+    list_editable = 'enabled',
+
+
 admin.site.register(Drink, DrinkAdmin)
 admin.site.register(Patron, PatronAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Sound, SoundAdmin)

@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='drink',
             name='photo',
-            field=models.ImageField(blank=True, upload_to=bartender.models.get_upload_path),
+            field=models.ImageField(blank=True),
         ),
     ]

@@ -19,13 +19,14 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
-from bartender.views import DrinkViewSet, PatronViewSet, OrderViewSet, OrderItemViewSet
+from bartender.views import DrinkViewSet, PatronViewSet, OrderViewSet, OrderItemViewSet, SoundViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'drinks', DrinkViewSet)
 router.register(r'patrons', PatronViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'order_items', OrderItemViewSet)
+router.register(r'sounds', SoundViewSet)
 
 urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('api/', include(router.urls)),
