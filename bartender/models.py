@@ -8,7 +8,7 @@ from .storage import OverwriteStorage
 
 PATRON_PHOTO_PATH = 'images/patrons/'
 DRINK_PHOTO_PATH = 'images/drinks/'
-SOUND_PATH = 'sounds/'
+SOUND_FILE_PATH = 'sounds/'
 
 
 class Drink(models.Model):
@@ -80,7 +80,7 @@ class OrderItem(models.Model):
 
 
 class Sound(models.Model):
-    file = models.FileField(upload_to=SOUND_PATH, validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
+    file = models.FileField(upload_to=SOUND_FILE_PATH, validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
     enabled = models.BooleanField(default=True)
     description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)

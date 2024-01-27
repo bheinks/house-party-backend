@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "virtual-bartender"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = ["Brett Heinkel <bheinks@gmail.com>"]
 readme = "README.md"
