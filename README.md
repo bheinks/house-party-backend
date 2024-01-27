@@ -52,7 +52,9 @@ Open the admin panel at http://127.0.0.1:8000 and sign in with your new user.
 ## To-do
 - Admin console documentation
 - API documentation
+- API authentication
+- User -> Patron relation
+- Sound file support for clients
 - Better error handling
 - Drink item filtering
 - Ability to categorize orders under "Events"
-- Redis support
