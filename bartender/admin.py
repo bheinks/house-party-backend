@@ -1,7 +1,11 @@
 import nested_admin
 
 from django.contrib import admin
-from .models import Drink, Patron, Order, OrderItem, Sound
+from .models import DrinkCategory, Drink, Patron, Order, OrderItem, Sound
+
+
+class DrinkCategoryAdmin(admin.ModelAdmin):
+    list_display = 'name',
 
 
 class DrinkAdmin(admin.ModelAdmin):
@@ -42,6 +46,7 @@ class SoundAdmin(admin.ModelAdmin):
     list_editable = 'enabled',
 
 
+admin.site.register(DrinkCategory, DrinkCategoryAdmin)
 admin.site.register(Drink, DrinkAdmin)
 admin.site.register(Patron, PatronAdmin)
 admin.site.register(Order, OrderAdmin)

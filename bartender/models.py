@@ -11,12 +11,23 @@ DRINK_PHOTO_PATH = 'images/drinks/'
 SOUND_FILE_PATH = 'sounds/'
 
 
+class DrinkCategory(models.Model):
+    class Meta:
+        verbose_name_plural = 'drink categories'
+
+    name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Drink(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     photo = models.ImageField(storage=OverwriteStorage(), upload_to=DRINK_PHOTO_PATH, blank=True)
     in_stock = models.BooleanField(default=True, verbose_name='in stock?')
+    category = models.ForeignKey(DrinkCategory, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
