@@ -5,15 +5,15 @@ A Django-based webapp for managing drink orders. Orders can be managed both thro
 ## Requirements
 
 ```
-python = "^3.10"
-django = "^5.0.1"
-django-nested-admin = "^4.0.2"
-djangorestframework = "^3.14.0"
+python = "~3.13"
+django = "^5.1.4"
+django-nested-admin = "^4.1.1"
+djangorestframework = "^3.15.2"
 python-decouple = "^3.8"
-pillow = "^10.2.0"
+pillow = "^10.4.0"
 django-filter = "^23.5"
-psycopg2-binary = "^2.9.9"
-setuptools = "^69.0.3"
+psycopg2-binary = "^2.9.10"
+setuptools = "^69.5.1"
 ```
 
 ## Installation
@@ -39,7 +39,7 @@ docker-compose up
 
 Upon first creation of the database, you must migrate the database:
 ```
-docker exec -it virtual-bartender-web-1 python manage.py migrate
+docker exec virtual-bartender-web-1 python manage.py migrate
 ```
 
 Create a superuser:
