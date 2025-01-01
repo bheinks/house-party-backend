@@ -27,7 +27,7 @@ class Drink(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     photo = models.ImageField(storage=OverwriteStorage(), upload_to=DRINK_PHOTO_PATH, blank=True)
     in_stock = models.BooleanField(default=True, verbose_name='in stock?')
-    category = models.ForeignKey(DrinkCategory, null=True, on_delete=models.SET_NULL)
+    categories = models.ManyToManyField(DrinkCategory)
 
     def __str__(self):
         return self.name
